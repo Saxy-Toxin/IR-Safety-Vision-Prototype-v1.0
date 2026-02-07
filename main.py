@@ -1,7 +1,8 @@
 import cv2
 import numpy as np
+from google.colab.patches import cv2_imshow # Import cv2_imshow
 danger_zone = np.array([[100, 400], [500, 400], [600, 700], [0, 700]], np.int32)
-cap = cv2.VideoCapture('test_video.mp4') # Initialize video capture
+cap = cv2.VideoCapture('/content/test_video.mp4.mp4') # Initialize video capture
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out = cv2.VideoWriter('output_demo.mp4', fourcc, 20.0, (int(cap.get(3)), int(cap.get(4))))
 
@@ -29,7 +30,7 @@ while cap.isOpened():
             cv2.rectangle(frame, (x, y), (x+w, y+h), color, 2)
 
     cv2.polylines(frame, [danger_zone], True, (255, 255, 0), 2)
-    cv2.imshow('Safety Monitor', frame)
+    cv2_imshow(frame) # Changed cv2.imshow to cv2_imshow
     out.write(frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
